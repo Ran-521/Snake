@@ -15,9 +15,25 @@
             <button id="pause-btn">暂停</button>
         </div>
         <canvas id="game-canvas" width="400" height="400"></canvas>
+        
+        <!-- 添加触屏控制按钮 -->
+        <div class="touch-controls">
+            <div class="touch-row">
+                <button id="btn-up">↑</button>
+            </div>
+            <div class="touch-row">
+                <button id="btn-left">←</button>
+                <button id="btn-right">→</button>
+            </div>
+            <div class="touch-row">
+                <button id="btn-down">↓</button>
+            </div>
+        </div>
+        
         <div class="game-instructions">
-            <p>使用键盘方向键控制蛇的移动</p>
+            <p>使用键盘方向键或触屏按钮控制蛇的移动</p>
             <p>↑ 向上 | ↓ 向下 | ← 向左 | → 向右</p>
+            <p>在手机上可以直接点击方向按钮控制</p>
         </div>
     </div>
     <script src="game.js"></script>

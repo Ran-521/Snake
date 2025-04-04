@@ -19,6 +19,7 @@ body { /* 应用于body元素 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
     padding: 20px; /* 内边距为20像素 */
     text-align: center; /* 文本居中 */
+    max-width: 100%; /* 最大宽度100%，确保在小屏幕上正确显示 */
 }
 
 h1 { /* 应用于h1标题 */
@@ -67,10 +68,66 @@ button:hover { /* 鼠标悬停在按钮上时 */
 #game-canvas { /* 应用于游戏画布 */
     border: 2px solid #333; /* 2像素实线深灰色边框 */
     background-color: #e8f5e9; /* 背景色设为浅绿色 */
+    max-width: 100%; /* 最大宽度100%，确保在小屏幕上正确显示 */
+    height: auto; /* 自动调整高度，保持比例 */
 }
 
 .game-instructions { /* 应用于游戏说明区域 */
     margin-top: 20px; /* 上外边距为20像素 */
     color: #666; /* 字体颜色设为灰色 */
     font-size: 14px; /* 字体大小为14像素 */
+}
+
+/* 触屏控制样式 */
+.touch-controls { /* 应用于触屏控制区域 */
+    margin-top: 20px; /* 上外边距为20像素 */
+    display: flex; /* 使用弹性布局 */
+    flex-direction: column; /* 垂直排列 */
+    align-items: center; /* 水平居中 */
+}
+
+.touch-row { /* 应用于触屏控制按钮行 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 水平居中 */
+}
+
+.touch-controls button { /* 应用于触屏控制按钮 */
+    width: 60px; /* 按钮宽度 */
+    height: 60px; /* 按钮高度 */
+    margin: 5px; /* 外边距 */
+    font-size: 24px; /* 字体大小 */
+    border-radius: 50%; /* 圆形按钮 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    background-color: #2196F3; /* 蓝色背景 */
+}
+
+.touch-controls button:hover {
+    background-color: #0b7dda; /* 深蓝色背景，悬停效果 */
+}
+
+/* 媒体查询，针对小屏幕设备 */
+@media (max-width: 480px) {
+    .game-container {
+        padding: 10px; /* 小屏幕上减少内边距 */
+    }
+    
+    h1 {
+        font-size: 24px; /* 小屏幕上减小标题字体 */
+    }
+    
+    .game-info {
+        flex-direction: column; /* 小屏幕上垂直排列 */
+    }
+    
+    #game-canvas {
+        width: 320px; /* 小屏幕上减小画布宽度 */
+        height: 320px; /* 小屏幕上减小画布高度 */
+    }
+    
+    .touch-controls button {
+        width: 50px; /* 小屏幕上减小按钮尺寸 */
+        height: 50px; /* 小屏幕上减小按钮尺寸 */
+    }
 } 

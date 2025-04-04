@@ -5,11 +5,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const scoreElement = document.getElementById('score');
     const startButton = document.getElementById('start-btn');
     const pauseButton = document.getElementById('pause-btn');
+    
+    // 获取触屏控制按钮
+    const btnUp = document.getElementById('btn-up');
+    const btnDown = document.getElementById('btn-down');
+    const btnLeft = document.getElementById('btn-left');
+    const btnRight = document.getElementById('btn-right');
+
+    // 调整画布大小以适应移动设备
+    function resizeCanvas() {
+        // 获取父容器宽度
+        const containerWidth = canvas.parentElement.clientWidth - 40; // 减去padding
+        // 确保canvas尺寸在移动设备上适配良好
+        if (window.innerWidth <= 480) {
+            const size = Math.min(320, containerWidth);
+            canvas.width = size;
+            canvas.height = size;
+        } else {
+            canvas.width = 400;
+            canvas.height = 400;
+        }
+    }
+    
+    // 页面加载和窗口大小改变时调整画布
+    resizeCanvas();
+    window.addEventListener('resize', function() {
+        resizeCanvas();
+        if (gameRunning) {
+            draw(); // 重新绘制游戏
+        } else {
+            draw(); // 重新绘制初始画面
+        }
+    });
 
     // 游戏变量
     const gridSize = 20;
-    const gridWidth = canvas.width / gridSize;
-    const gridHeight = canvas.height / gridSize;
+    let gridWidth, gridHeight;
     
     let snake = [];
     let food = {};
@@ -23,11 +54,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化游戏
     function initGame() {
+        // 根据画布大小计算网格数量
+        gridWidth = Math.floor(canvas.width / gridSize);
+        gridHeight = Math.floor(canvas.height / gridSize);
+        
         // 初始化蛇
         snake = [
-            {x: 5, y: 10},
-            {x: 4, y: 10},
-            {x: 3, y: 10}
+            {x: Math.floor(gridWidth / 4), y: Math.floor(gridHeight / 2)},
+            {x: Math.floor(gridWidth / 4) - 1, y: Math.floor(gridHeight / 2)},
+            {x: Math.floor(gridWidth / 4) - 2, y: Math.floor(gridHeight / 2)}
         ];
         
         // 生成食物
@@ -232,34 +267,98 @@ document.addEventListener('DOMContentLoaded', function() {
         
         startButton.textContent = '再玩一次';
     }
+    
+    // 设置蛇的移动方向
+    function setDirection(newDirection) {
+        if (!gameRunning || gamePaused) return;
+        
+        // 防止蛇反向移动
+        if (newDirection === 'up' && direction !== 'down') {
+            nextDirection = 'up';
+        } else if (newDirection === 'down' && direction !== 'up') {
+            nextDirection = 'down';
+        } else if (newDirection === 'left' && direction !== 'right') {
+            nextDirection = 'left';
+        } else if (newDirection === 'right' && direction !== 'left') {
+            nextDirection = 'right';
+        }
+    }
 
     // 键盘控制
     document.addEventListener('keydown', function(event) {
-        if (!gameRunning || gamePaused) return;
-        
         switch (event.key) {
             case 'ArrowUp':
-                if (direction !== 'down') {
-                    nextDirection = 'up';
-                }
+                setDirection('up');
                 break;
             case 'ArrowDown':
-                if (direction !== 'up') {
-                    nextDirection = 'down';
-                }
+                setDirection('down');
                 break;
             case 'ArrowLeft':
-                if (direction !== 'right') {
-                    nextDirection = 'left';
-                }
+                setDirection('left');
                 break;
             case 'ArrowRight':
-                if (direction !== 'left') {
-                    nextDirection = 'right';
-                }
+                setDirection('right');
                 break;
         }
     });
+    
+    // 触屏控制按钮事件
+    btnUp.addEventListener('click', function() {
+        setDirection('up');
+    });
+    
+    btnDown.addEventListener('click', function() {
+        setDirection('down');
+    });
+    
+    btnLeft.addEventListener('click', function() {
+        setDirection('left');
+    });
+    
+    btnRight.addEventListener('click', function() {
+        setDirection('right');
+    });
+    
+    // 触摸屏滑动控制
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    // 监听触摸开始事件
+    canvas.addEventListener('touchstart', function(event) {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+        event.preventDefault(); // 防止页面滚动
+    }, { passive: false });
+    
+    // 监听触摸结束事件
+    canvas.addEventListener('touchend', function(event) {
+        if (!gameRunning || gamePaused) return;
+        
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+        
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+        
+        // 判断滑动方向
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // 水平滑动
+            if (diffX > 30) { // 向右滑动
+                setDirection('right');
+            } else if (diffX < -30) { // 向左滑动
+                setDirection('left');
+            }
+        } else {
+            // 垂直滑动
+            if (diffY > 30) { // 向下滑动
+                setDirection('down');
+            } else if (diffY < -30) { // 向上滑动
+                setDirection('up');
+            }
+        }
+        
+        event.preventDefault(); // 防止页面滚动
+    }, { passive: false });
 
     // 按钮事件
     startButton.addEventListener('click', startGame);
