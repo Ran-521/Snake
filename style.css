@@ -1,0 +1,76 @@
+* { /* 通用选择器，应用于所有元素 */
+    margin: 0; /* 外边距设为0 */
+    padding: 0; /* 内边距设为0 */
+    box-sizing: border-box; /* 盒模型设为border-box，使元素宽高包含边框和内边距 */
+}
+
+body { /* 应用于body元素 */
+    font-family: Arial, sans-serif; /* 设置字体为Arial或默认sans-serif */
+    background-color: #f0f0f0; /* 设置背景色为浅灰色 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度，确保内容居中 */
+}
+
+.game-container { /* 应用于游戏容器 */
+    background-color: white; /* 背景色设为白色 */
+    border-radius: 10px; /* 设置圆角为10像素 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    padding: 20px; /* 内边距为20像素 */
+    text-align: center; /* 文本居中 */
+}
+
+h1 { /* 应用于h1标题 */
+    color: #333; /* 字体颜色设为深灰 */
+    margin-bottom: 20px; /* 下外边距为20像素 */
+}
+
+.game-info { /* 应用于游戏信息区域 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: space-between; /* 子元素之间空间均匀分布 */
+    margin-bottom: 20px; /* 下外边距为20像素 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+.score { /* 应用于分数显示区域 */
+    font-size: 18px; /* 字体大小为18像素 */
+    font-weight: bold; /* 字体加粗 */
+}
+
+button { /* 应用于所有按钮 */
+    background-color: #4CAF50; /* 背景色设为绿色 */
+    border: none; /* 无边框 */
+    color: white; /* 字体颜色为白色 */
+    padding: 10px 15px; /* 内边距上下10像素，左右15像素 */
+    text-align: center; /* 文本居中 */
+    text-decoration: none; /* 无文本装饰 */
+    display: inline-block; /* 显示为行内块元素 */
+    font-size: 16px; /* 字体大小为16像素 */
+    margin: 4px 2px; /* 外边距上下4像素，左右2像素 */
+    cursor: pointer; /* 鼠标悬停时显示手型光标 */
+    border-radius: 5px; /* 按钮圆角为5像素 */
+}
+
+button:hover { /* 鼠标悬停在按钮上时 */
+    background-color: #45a049; /* 背景色变深 */
+}
+
+#pause-btn { /* 应用于暂停按钮 */
+    background-color: #f44336; /* 背景色设为红色 */
+}
+
+#pause-btn:hover { /* 鼠标悬停在暂停按钮上时 */
+    background-color: #d32f2f; /* 背景色变深 */
+}
+
+#game-canvas { /* 应用于游戏画布 */
+    border: 2px solid #333; /* 2像素实线深灰色边框 */
+    background-color: #e8f5e9; /* 背景色设为浅绿色 */
+}
+
+.game-instructions { /* 应用于游戏说明区域 */
+    margin-top: 20px; /* 上外边距为20像素 */
+    color: #666; /* 字体颜色设为灰色 */
+    font-size: 14px; /* 字体大小为14像素 */
+} 
